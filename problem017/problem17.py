@@ -2,9 +2,11 @@
 import itertools as it
 
 
+total_chars = lambda listing: sum(map(len, listing))
 total = 0
 
-numbers = [
+
+total += total_chars([
         'one',
         'two',
         'three',
@@ -23,11 +25,10 @@ numbers = [
         'sixteen',
         'seventeen',
         'eighteen',
-        'nineteen']
+        'nineteen'])
 
-total += sum(map(len, numbers))
 
-digits = [ 
+total_digits = total_chars([ 
         'one',
         'two',
         'three',
@@ -36,9 +37,10 @@ digits = [
         'six',
         'seven',
         'eight',
-        'nine']
+        'nine'])
 
-tenths = [ 
+
+total_tenths = total_chars([ 
         'twenty',
         'thirty',
         'fourty',
@@ -46,14 +48,11 @@ tenths = [
         'sixty',
         'seventy',
         'eigthy',
-        'ninety']
+        'ninety'])
 
-for number in it.product(tenths, digits):
-    print '%s-%s' % number
+total += total_tenths + total_tenths * total_digits
+numbers_less_than_one_hundred = total
 
-total += sum(map(len, digits)) * sum(map(len, tenths)) + sum(map(len, tenths))
-
-for number in it.product(digits, tenths, digits):
-    print '%s hundred and %s-%s' % number
-
+total += total_digits * total_chars(['hundred', 'and']) * numbers_less_than_one_hundred
+total += total_chars(['one', 'thousand'])
 print total
