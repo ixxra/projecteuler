@@ -1,5 +1,8 @@
 #!/bin/bash
 id=$1
+
+test -z "$id" && echo "Error: Empty number id" && exit 1
+
 new_folder=$( printf "problem%03d" $id )
 
 test -e $new_folder && echo "Error: $new_folder already exists!" && exit 1

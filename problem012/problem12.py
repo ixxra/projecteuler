@@ -14,7 +14,7 @@ def divisors(n):
 
 def count_divisors(n):
     count = 0
-    for i in range(2, n/2 + 1):
+    for i in xrange(2, n/2 + 1):
         if n % i == 0:
             count += 1
     return count
@@ -25,11 +25,11 @@ prev_divs = 1
 total_divs = 1
 
 
-while total_divs < 499:
-    n += 1
-    divs = count_divisors(n + 1)
-    total_divs = prev_divs + divs
-    prev_divs = divs
-    print n, total_divs
+#while total_divs < 499:
+#    n += 1
+#    divs = count_divisors(n + 1)
+#    total_divs = prev_divs + divs
+#    prev_divs = divs
+#    print n, total_divs
     
 
