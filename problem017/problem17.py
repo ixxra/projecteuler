@@ -1,12 +1,9 @@
 #!/usr/bin/env python2
-import itertools as it
+import re
 
 
-total_chars = lambda listing: sum(map(len, listing))
-total = 0
-
-
-total += total_chars([
+def parse_number(n):
+    first_numbers = [
         'one',
         'two',
         'three',
@@ -16,43 +13,70 @@ total += total_chars([
         'seven',
         'eight',
         'nine',
-        'then',
+        'ten',
         'eleven',
         'twelve',
         'thirteen',
-        'fourtheen',
+        'fourteen',
         'fifteen',
         'sixteen',
         'seventeen',
         'eighteen',
-        'nineteen'])
+        'nineteen']
+    
+    digits = {
+        1: 'one',
+        2: 'two',
+        3: 'three',
+        4: 'four',
+        5: 'five',
+        6: 'six',
+        7: 'seven',
+        8: 'eight',
+        9: 'nine'}
+    
+    tenths = {
+        2: 'twenty',
+        3: 'thirty',
+        4: 'forty',
+        5: 'fifty',
+        6: 'sixty',
+        7: 'seventy',
+        8: 'eigthy',
+        9: 'ninety'}
+
+    if n < 20:
+        return first_numbers[n - 1]
+
+    elif n == 1000:
+        return 'one thousand'
+    
+    elif n < 100:
+        t, u = n / 10, n % 10
+        if u == 0:
+            return tenths[t]
+        else:
+            return '%s-%s' % (tenths[t], digits[u])
+    
+    else:
+        h, m = n / 100, n % 100
+        if m == 0:
+            return '%s hundred' % digits[h]
+        else:
+            if m < 20:
+                return '%s hundred and %s' % (digits[h], first_numbers[m - 1])
+            else:
+                t, u = m / 10, m % 10
+                if u == 0:
+                    return '%s hundred and %s' % (digits[h], tenths[t])
+                else:
+                    return '%s hundred and %s-%s' % (digits[h], tenths[t], digits[u])
 
 
-total_digits = total_chars([ 
-        'one',
-        'two',
-        'three',
-        'four',
-        'five',
-        'six',
-        'seven',
-        'eight',
-        'nine'])
+letters = re.compile(r'[a-z]')
+total = 0
 
-
-total_tenths = total_chars([ 
-        'twenty',
-        'thirty',
-        'fourty',
-        'fifty',
-        'sixty',
-        'seventy',
-        'eigthy',
-        'ninety'])
-
-total += total_tenths + total_tenths * total_digits
-numbers_less_than_one_hundred = total
-
-total += total_digits * total_chars(['hundred', 'and']) * numbers_less_than_one_hundred
-total += total_chars(['one', 'thousand'])
+for i in range(1, 1001):
+    total += len(letters.findall(parse_number(i)))
+        
 print total
