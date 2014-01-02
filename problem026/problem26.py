@@ -49,7 +49,7 @@ for d in xrange(2, 1001):
         max_len, max_d = new_len, d
 
 
-print max_d, max_len
+print max_d
 
 #for d in range(50, 100):
 #    quot, res = divide(d)

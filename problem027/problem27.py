@@ -4,7 +4,10 @@ from itertools import product
 
 
 def isprime(p):
-    for d in xrange(2, int(ceil(sqrt(p))) + 1):
+    if p % 2 == 0:
+        return False
+
+    for d in xrange(3, int(ceil(sqrt(p))) + 1, 2):
         if p % d == 0:
             return False
     return True
